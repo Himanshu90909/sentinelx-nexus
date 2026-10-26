@@ -26,9 +26,9 @@ function mockRes(): MockRes {
 }
 
 async function call(method: string, path: string, opts: { auth?: string; body?: unknown } = {}): Promise<{ code: number; body: Json | null }> {
-  const mod = await import("../api/[...route].js");
-  const handler = (mod.default ?? mod) as unknown as (req: VercelRequest, res: VercelResponse) => Promise<void>;
+  const mod = await import("../server/http.js");
   const url = new URL(`https://sentinelx.test/api/${path}`);
+  const m = mod.matchPath(method, url.pathname);
   const req = {
     method,
     url: url.pathname + url.search,
@@ -36,7 +36,11 @@ async function call(method: string, path: string, opts: { auth?: string; body?: 
     body: opts.body ?? undefined,
   } as unknown as VercelRequest;
   const res = mockRes();
-  await handler(req, res as unknown as VercelResponse);
+  if (!m) {
+    await mod.serve(req, res as unknown as VercelResponse, `${method} __missing__`, {});
+    return { code: res.code, body: res.body };
+  }
+  await mod.serve(req, res as unknown as VercelResponse, m.key, m.params);
   return { code: res.code, body: res.body };
 }
 

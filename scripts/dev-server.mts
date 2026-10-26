@@ -9,7 +9,7 @@ const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const DIST = join(ROOT, "dist");
 const PORT = Number(process.env.PORT ?? 3000);
 
-const { default: api } = await import("../api/[...route].ts");
+const { serve, matchPath } = await import("../server/http.ts");
 
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".json": "application/json", ".png": "image/png", ".ico": "image/x-icon" };
 
@@ -32,7 +32,8 @@ const server = http.createServer(async (req, res) => {
     };
     Object.assign(req, { body });
     try {
-      await api(req, shim);
+      const m = matchPath(String(req.method ?? "GET"), url.pathname);
+      await serve(req, shim, m?.key ?? `${req.method} __missing__`, m?.params ?? {});
     } catch (e) {
       res.statusCode = 500;
       res.end(JSON.stringify({ status: "DATA_UNAVAILABLE", reason: String(e) }));
