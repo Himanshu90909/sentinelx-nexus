@@ -4,8 +4,5 @@
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
-  ],
-  "functions": {
-    "api/[...route].ts": { "maxDuration": 30 }
-  }
+  ]
 }
