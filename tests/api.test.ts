@@ -26,7 +26,7 @@ function mockRes(): MockRes {
 }
 
 async function call(method: string, path: string, opts: { auth?: string; body?: unknown } = {}): Promise<{ code: number; body: Json | null }> {
-  const mod = await import("../api/[[...route]].js");
+  const mod = await import("../api/[...route].js");
   const handler = (mod.default ?? mod) as unknown as (req: VercelRequest, res: VercelResponse) => Promise<void>;
   const url = new URL(`https://sentinelx.test/api/${path}`);
   const req = {

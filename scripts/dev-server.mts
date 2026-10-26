@@ -9,7 +9,7 @@ const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const DIST = join(ROOT, "dist");
 const PORT = Number(process.env.PORT ?? 3000);
 
-const { default: api } = await import("../api/[[...route]].ts");
+const { default: api } = await import("../api/[...route].ts");
 
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".json": "application/json", ".png": "image/png", ".ico": "image/x-icon" };
 
