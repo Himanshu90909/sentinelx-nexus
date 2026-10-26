@@ -3,6 +3,15 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/api/health", "destination": "/api/meta/health" },
+    { "source": "/api/architecture", "destination": "/api/meta/architecture" },
+    { "source": "/api/providers", "destination": "/api/meta/providers" },
+    { "source": "/api/models", "destination": "/api/meta/models" },
+    { "source": "/api/matrix", "destination": "/api/meta/matrix" },
+    { "source": "/api/datasets", "destination": "/api/meta/datasets" },
+    { "source": "/api/experiments", "destination": "/api/meta/experiments" },
+    { "source": "/api/metrics/latency", "destination": "/api/meta/latency" },
+    { "source": "/api/synthetic", "destination": "/api/meta/synthetic" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
