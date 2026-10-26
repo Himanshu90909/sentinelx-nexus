@@ -38,7 +38,7 @@ export const RegimeMonitor: React.FC = () => {
   const driverCols: Column<RegimeDriver>[] = [
     { key: 'name', header: 'Feature Driver', render: (d) => <span className="mono" style={{ color: '#4fd1c5' }}>{d.name}</span> },
     { key: 'value', header: 'Observed Value', render: (d) => <span className="mono">{d.value.toFixed(4)}</span> },
-    { key: 'contribution', header: 'Contribution Weight', render: (d) => <span className="mono" style={{ color: d.contribution > 0.3 ? '#d69e2e' : '#48bb78' }}>{(d.contribution * 100).toFixed(1)}%</span> },
+    { key: 'contribution', header: 'Explainable Driver', render: (d) => <span className="mono">{d.contribution}</span> },
   ];
 
   return (
@@ -81,13 +81,13 @@ export const RegimeMonitor: React.FC = () => {
             <MetricTile
               label="Classifier Confidence"
               value={`${(regData.confidence * 100).toFixed(1)}%`}
-              subtext="GMM / HMM posterior probability"
+              subtext="driver-agreement score (measured)"
               accentColor="#9f7aea"
             />
             <MetricTile
               label="Top Driver Impact"
-              value={regData.drivers?.[0] ? `${(regData.drivers[0].contribution * 100).toFixed(1)}%` : '0%'}
-              subtext={regData.drivers?.[0]?.name || 'N/A'}
+              value={regData.drivers?.[0]?.name || 'N/A'}
+              subtext={regData.drivers?.[0]?.contribution || 'N/A'}
               accentColor="#d69e2e"
             />
           </div>

@@ -71,7 +71,7 @@ export const ForecastExplorer: React.FC = () => {
   const historyCols: Column<HistoricalForecast>[] = [
     { key: 'targetTime', header: 'Target Time', render: (r) => <span className="mono">{r.targetTime || r.madeAt}</span> },
     { key: 'horizon', header: 'Horizon', render: (r) => <span className="mono">{r.horizon}</span> },
-    { key: 'model', header: 'Model', render: (r) => <span className="mono" style={{ color: '#4fd1c5' }}>{r.model?.id}</span> },
+    { key: 'model', header: 'Model', render: (r) => <span className="mono" style={{ color: '#4fd1c5' }}>{typeof r.model === 'string' ? r.model : (r.model && 'id' in r.model ? r.model.id : '-')}</span> },
     { key: 'point', header: 'Prediction', render: (r) => <span className="mono">{r.point?.toFixed(2)}</span> },
     { key: 'interval', header: '80% Interval', render: (r) => <span className="mono">[{r.lower?.toFixed(2)}, {r.upper?.toFixed(2)}]</span> },
     { key: 'actual', header: 'Actual', render: (r) => <span className="mono">{r.actual !== null && r.actual !== undefined ? r.actual.toFixed(2) : '-'}</span> },
@@ -145,7 +145,7 @@ export const ForecastExplorer: React.FC = () => {
             <MetricTile
               label="Inference Latency"
               value={`${fc.latencyMs ?? 0} ms`}
-              subtext={`Regime: ${fc.regime || 'NORMAL'}`}
+              subtext={`Regime: ${typeof fc.regime === 'string' ? fc.regime : fc.regime?.state || 'UNKNOWN'}`}
               accentColor="#d69e2e"
             />
           </div>

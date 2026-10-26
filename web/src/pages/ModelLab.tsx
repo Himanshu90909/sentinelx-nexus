@@ -176,10 +176,9 @@ export const ModelLab: React.FC = () => {
                         <th>Fold #</th>
                         <th>Train Window</th>
                         <th>Test Window</th>
-                        <th>MAE</th>
-                        <th>sMAPE</th>
-                        <th>MASE</th>
-                        <th>Coverage 80%</th>
+                        <th>Predicted</th>
+                        <th>Actual</th>
+                        <th>80% Band</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -192,10 +191,11 @@ export const ModelLab: React.FC = () => {
                           <td style={{ fontFamily: 'monospace', color: '#8b95a5' }}>
                             {fold.testStart} → {fold.testEnd}
                           </td>
-                          <td style={{ fontFamily: 'monospace' }}>{fold.metrics.mae.toFixed(2)}</td>
-                          <td style={{ fontFamily: 'monospace' }}>{(fold.metrics.smape * 100).toFixed(2)}%</td>
-                          <td style={{ fontFamily: 'monospace' }}>{fold.metrics.mase.toFixed(3)}</td>
-                          <td style={{ fontFamily: 'monospace' }}>{(fold.metrics.coverage80 * 100).toFixed(1)}%</td>
+                          <td style={{ fontFamily: 'monospace', color: '#4fd1c5' }}>{fold.predicted.toFixed(4)}</td>
+                          <td style={{ fontFamily: 'monospace' }}>{fold.actual.toFixed(4)}</td>
+                          <td style={{ fontFamily: 'monospace', color: fold.within80 === undefined ? '#8b95a5' : fold.within80 ? '#48bb78' : '#e05252' }}>
+                            {fold.within80 === undefined ? '-' : fold.within80 ? 'in band' : 'outside'}
+                          </td>
                         </tr>
                       ))}
                     </tbody>

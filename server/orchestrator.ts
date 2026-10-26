@@ -362,7 +362,7 @@ export function getHealth(): ApiResult<unknown> {
     version: VERSIONS.code,
     uptimeSeconds: Math.round((Date.now() - Date.parse(globalRef.__SN_BOOT!)) / 1000),
     instanceId,
-    dataModeBanner: anyLive ? "MIXED: LIVE crypto (Binance) + labeled data for other classes" : "SYNTHETIC / HISTORICAL: no live equity provider configured",
+    dataModeBanner: anyLive ? "MIXED: LIVE crypto (public exchange APIs, health-gated) + labeled data for other classes" : "SYNTHETIC / HISTORICAL: no live equity provider configured",
     disclaimer: "Research and ML engineering platform. Not investment advice.",
   });
 }

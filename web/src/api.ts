@@ -7,7 +7,8 @@ export type ApiStatus =
   | 'LEAKAGE_DETECTED'
   | 'PROVIDER_RATE_LIMITED'
   | 'NOT_CONFIGURED'
-  | 'UNAUTHORIZED';
+  | 'UNAUTHORIZED'
+  | 'BAD_REQUEST';
 
 export interface ApiResult<T> {
   status: ApiStatus;
@@ -45,13 +46,14 @@ export interface ArchitectureData {
 
 export interface ProviderInfo {
   name: string;
-  kind: 'MARKET' | 'HISTORICAL' | 'STREAMING' | 'FUNDAMENTALS' | 'MACRO' | 'NEWS' | 'CRYPTO';
+  kind: string;
   configured: boolean;
-  healthy: boolean;
+  healthy: boolean | null;
   dataMode: string;
-  lastSuccess?: string;
-  lastError?: string;
-  latencyMs?: number;
+  lastSuccess?: string | null;
+  lastError?: string | null;
+  latencyMs?: number | null;
+  requests?: number;
   requests24h?: number;
   cacheHitRate?: number;
   requiredEnv?: string[];
@@ -143,7 +145,7 @@ export interface ForecastData {
   confidence: number;
   model: ForecastModel;
   router?: ForecastRouter;
-  regime?: string;
+  regime?: { state: string; confidence?: number; drivers?: { name: string; value: number; contribution?: string }[] } | string;
   dataSnapshotId?: string;
   featureVersion?: string;
   datasetVersion?: string;
@@ -151,7 +153,8 @@ export interface ForecastData {
   latencyMs?: number;
 }
 
-export interface HistoricalForecast extends ForecastData {
+export interface HistoricalForecast extends Omit<ForecastData, 'model'> {
+  model?: { id: string; version: string } | string;
   actual?: number | null;
   error?: number | null;
   resolved?: boolean;
@@ -200,40 +203,11 @@ export interface ModelsData {
   models: ModelInfo[];
 }
 
-export interface EvaluationMetrics {
-  mae: number;
-  rmse: number;
-  smape: number;
-  mase: number;
-  directionalAccuracy: number;
-  coverage80: number;
-  calibrationError: number;
-  samples: number;
-}
-
-export interface EvaluationFold {
-  trainStart: string;
-  trainEnd: string;
-  testStart: string;
-  testEnd: string;
-  metrics: EvaluationMetrics;
-}
-
-export interface EvaluationData {
-  model: string;
-  symbol: string;
-  timeframe: string;
-  horizon: string;
-  folds: EvaluationFold[];
-  metrics: EvaluationMetrics;
-  latencyMs: number;
-  experimentId?: string;
-}
 
 export interface RegimeDriver {
   name: string;
   value: number;
-  contribution: number;
+  contribution: string;
 }
 
 export interface RegimeHistory {
@@ -248,26 +222,6 @@ export interface RegimeData {
   confidence: number;
   drivers: RegimeDriver[];
   history: RegimeHistory[];
-}
-
-export interface DriftPSI {
-  feature: string;
-  psi: number;
-  status: 'STABLE' | 'WARNING' | 'DRIFT';
-}
-
-export interface DriftEvent {
-  t: string;
-  type: string;
-  detail: string;
-  severity: string;
-}
-
-export interface DriftData {
-  symbol: string;
-  psi: DriftPSI[];
-  events: DriftEvent[];
-  monitoringLevel: string;
 }
 
 export interface LeakageEvent {
@@ -286,21 +240,6 @@ export interface LeakageData {
     passed: boolean;
     description: string;
   };
-}
-
-export interface ReplayRow {
-  replayTime: string;
-  availableBars: number;
-  featuresAvailable?: number;
-  prediction: number;
-  model: string;
-  actual?: number;
-  error?: number;
-  leaked: boolean;
-}
-
-export interface ReplayData {
-  rows: ReplayRow[];
 }
 
 export interface DatasetVersion {
@@ -333,25 +272,12 @@ export interface ExperimentsData {
   experiments: Experiment[];
 }
 
-export interface LatencySample {
-  endpoint: string;
-  p50Ms: number;
-  p95Ms: number;
-  count: number;
-  measuredAt: string;
-}
-
-export interface LatencyData {
-  samples: LatencySample[];
-  note: string;
-}
-
 export async function get<T>(path: string): Promise<ApiResult<T>> {
   try {
     const res = await fetch(path);
     if (!res.ok) {
       return {
-        status: res.status === 401 ? 'UNAUTHORIZED' : 'DATA_UNAVAILABLE',
+        status: res.status === 401 ? 'UNAUTHORIZED' : res.status === 400 ? 'BAD_REQUEST' : 'DATA_UNAVAILABLE',
         reason: `HTTP ${res.status}: ${res.statusText}`,
       };
     }
@@ -375,7 +301,7 @@ export async function post<T>(path: string, body?: unknown): Promise<ApiResult<T
     });
     if (!res.ok) {
       return {
-        status: res.status === 401 ? 'UNAUTHORIZED' : 'DATA_UNAVAILABLE',
+        status: res.status === 401 ? 'UNAUTHORIZED' : res.status === 400 ? 'BAD_REQUEST' : 'DATA_UNAVAILABLE',
         reason: `HTTP ${res.status}: ${res.statusText}`,
       };
     }
@@ -388,4 +314,91 @@ export async function post<T>(path: string, body?: unknown): Promise<ApiResult<T
       reason: msg,
     };
   }
+}
+
+export interface PsiItem {
+  feature: string;
+  psi: number;
+  status: 'STABLE' | 'WARNING' | 'DRIFT' | string;
+}
+
+export interface DriftEventItem {
+  at: string;
+  type: string;
+  detail: string;
+  severity: string;
+}
+
+export interface DriftData {
+  symbol: string;
+  psi: PsiItem[];
+  events: DriftEventItem[];
+  monitoringLevel: string;
+}
+
+export interface EvaluationMetrics {
+  mae: number;
+  rmse: number;
+  smape: number;
+  mase: number;
+  directionalAccuracy: number;
+  coverage80: number;
+  calibrationError: number;
+  samples: number;
+}
+
+export interface EvaluationFold {
+  trainStart: string;
+  trainEnd: string;
+  testStart: string;
+  testEnd: string;
+  predicted: number;
+  actual: number;
+  within80?: boolean;
+}
+
+export interface EvaluationData {
+  model: string;
+  symbol: string;
+  timeframe: string;
+  horizon: string;
+  folds: EvaluationFold[];
+  metrics: EvaluationMetrics;
+  latencyMs: number;
+  experimentId: string;
+  datasetVersion: string;
+  codeVersion: string;
+  reproductionCommand: string;
+}
+
+export interface LatencySample {
+  endpoint: string;
+  p50Ms: number;
+  p95Ms: number;
+  count: number;
+  measuredAt: string;
+}
+
+export interface LatencyData {
+  samples: LatencySample[];
+  note?: string;
+}
+
+export interface ReplayRowData {
+  replayTime: string;
+  availableBars: number;
+  featuresAvailable: string[];
+  prediction: number;
+  model: string;
+  actual: number | null;
+  error: number | null;
+  leaked: boolean;
+}
+
+export interface ReplayData {
+  symbol: string;
+  timeframe: string;
+  horizon: string;
+  rows: ReplayRowData[];
+  guarantee: string;
 }
