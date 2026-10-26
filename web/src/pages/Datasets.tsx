@@ -23,22 +23,22 @@ export const Datasets: React.FC = () => {
   const cols: Column<DatasetVersion>[] = [
     { key: 'version', header: 'Version ID', render: (d) => <span className="mono" style={{ color: '#4fd1c5', fontWeight: 'bold' }}>{d.version}</span> },
     { key: 'symbols', header: 'Symbols', render: (d) => <span className="mono">{d.symbols.join(', ')}</span> },
-    { key: 'range', header: 'Temporal Range', render: (d) => <span className="mono" style={{ color: '#8b95a5' }}>{d.range}</span> },
-    { key: 'featureVersion', header: 'Feature Schema', render: (d) => <span className="mono" style={{ color: '#9f7aea' }}>{d.featureVersion}</span> },
-    { key: 'provider', header: 'Source Provider', render: (d) => <span className="mono">{d.provider}</span> },
-    { key: 'checksum', header: 'SHA256 Checksum', render: (d) => <span className="mono" style={{ color: '#8b95a5' }}>{d.checksum ? `${d.checksum.slice(0, 12)}...` : '-'}</span> },
-    { key: 'immutable', header: 'Immutable', render: (d) => <StatusBadge status={d.immutable ? 'OK' : 'WARNING'} label={d.immutable ? 'LOCK' : 'MUTABLE'} /> },
+    { key: 'range', header: 'Time Range', render: (d) => <span className="mono" style={{ color: '#8b95a5' }}>{d.range}</span> },
+    { key: 'featureVersion', header: 'Schema', render: (d) => <span className="mono" style={{ color: '#9f7aea' }}>{d.featureVersion}</span> },
+    { key: 'provider', header: 'Source', render: (d) => <span className="mono">{d.provider}</span> },
+    { key: 'checksum', header: 'Fingerprint', render: (d) => <span className="mono" style={{ color: '#8b95a5' }}>{d.checksum ? `${d.checksum.slice(0, 12)}...` : '-'}</span> },
+    { key: 'immutable', header: 'Immutable', render: (d) => <StatusBadge status={d.immutable ? 'OK' : 'WARNING'} label={d.immutable ? 'Locked' : 'Draft'} /> },
   ];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">DATASET REGISTRY</h2>
+          <h2 className="page-title">Dataset Registry</h2>
           <StatusBadge status={status} />
         </div>
         <div className="page-question">
-          Research Question: Which immutable data snapshot versions underpin model training, evaluation, and feature store state?
+          Which immutable data snapshot versions underpin model training, evaluation, and feature store state?
         </div>
       </div>
 

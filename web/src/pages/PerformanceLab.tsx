@@ -20,9 +20,9 @@ export const PerformanceLab: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
-        <h2 className="page-title">PERFORMANCE LAB</h2>
+        <h2 className="page-title">Performance Lab</h2>
         <div className="page-question">
-          Research Question: What are the measured p50/p95 latencies of each API endpoint?
+          What are the measured p50/p95 latencies of each API endpoint?
         </div>
       </div>
 

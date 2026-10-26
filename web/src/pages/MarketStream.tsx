@@ -37,7 +37,7 @@ export const MarketStream: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">MARKET STREAM</h2>
+          <h2 className="page-title">Market Stream</h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '10px', color: '#8b95a5', fontFamily: 'monospace' }}>
               10s polling
@@ -46,7 +46,7 @@ export const MarketStream: React.FC = () => {
           </div>
         </div>
         <div className="page-question">
-          Research Question: What are the raw market inputs, data quality checks, and event freshness for selected instruments?
+          What are the raw market inputs, data quality checks, and event freshness for selected instruments?
         </div>
       </div>
 

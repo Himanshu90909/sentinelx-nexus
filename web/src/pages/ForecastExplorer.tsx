@@ -7,6 +7,7 @@ import {
   MarketData,
 } from '../api';
 import { StatusBadge } from '../components/StatusBadge';
+import { modelText, regimeText } from '../humanize';
 import { ForecastChart } from '../components/ForecastChart';
 import { MetricTile } from '../components/MetricTile';
 import { DataTable, Column } from '../components/DataTable';
@@ -83,11 +84,11 @@ export const ForecastExplorer: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">FORECAST EXPLORER</h2>
+          <h2 className="page-title">Forecast Explorer</h2>
           <StatusBadge status={forecastRes.status} />
         </div>
         <div className="page-question">
-          Research Question: What is the calibrated uncertainty interval, routing evidence, and historical accuracy for this forecast?
+          What is the calibrated uncertainty interval, routing evidence, and historical accuracy for this forecast?
         </div>
       </div>
 
@@ -137,15 +138,15 @@ export const ForecastExplorer: React.FC = () => {
               accentColor="#9f7aea"
             />
             <MetricTile
-              label="Selected Model"
-              value={fc.model?.id || 'N/A'}
+              label="Model Used"
+              value={modelText(fc.model?.id)}
               subtext={`Version: ${fc.model?.version || 'v1'}`}
               accentColor="#48bb78"
             />
             <MetricTile
-              label="Inference Latency"
-              value={`${fc.latencyMs ?? 0} ms`}
-              subtext={`Regime: ${typeof fc.regime === 'string' ? fc.regime : fc.regime?.state || 'UNKNOWN'}`}
+              label="Market Mood"
+              value={regimeText(typeof fc.regime === 'string' ? fc.regime : fc.regime?.state)}
+              subtext={`Forecast computed in ${fc.latencyMs ?? 0} ms`}
               accentColor="#d69e2e"
             />
           </div>
@@ -154,7 +155,7 @@ export const ForecastExplorer: React.FC = () => {
           {fc.router?.reason && (
             <div className="panel" style={{ borderLeft: '3px solid #4fd1c5' }}>
               <div className="panel-header">
-                <span className="panel-title">Model Router Decision Evidence</span>
+                <span className="panel-title">Why this model?</span>
               </div>
               <p style={{ fontFamily: 'monospace', fontSize: '11px', color: '#d7dde6' }}>
                 {fc.router.reason}

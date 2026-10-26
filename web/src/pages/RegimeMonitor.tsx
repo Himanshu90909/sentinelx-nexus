@@ -1,3 +1,4 @@
+import { regimeText } from '../humanize';
 import React, { useState, useEffect } from 'react';
 import { get, InstrumentsData, RegimeData, RegimeDriver } from '../api';
 import { StatusBadge } from '../components/StatusBadge';
@@ -45,11 +46,11 @@ export const RegimeMonitor: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">REGIME MONITOR</h2>
+          <h2 className="page-title">Market Mood</h2>
           <StatusBadge status={regData?.regime || 'STABLE'} />
         </div>
         <div className="page-question">
-          Research Question: What structural market regime is currently active, and what feature drivers induced the shift?
+          What structural market regime is currently active, and what feature drivers induced the shift?
         </div>
       </div>
 
@@ -73,9 +74,9 @@ export const RegimeMonitor: React.FC = () => {
           <div className="grid-3">
             <MetricTile
               label="Active Regime"
-              value={regData.regime}
+              value={regimeText(regData.regime)}
               subtext={`Since: ${regData.since || 'N/A'}`}
-              badge={<StatusBadge status="OK" label={regData.regime} />}
+              badge={<StatusBadge status="OK" label={regimeText(regData.regime)} />}
               accentColor="#4fd1c5"
             />
             <MetricTile

@@ -46,11 +46,11 @@ export const DriftMonitor: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">DRIFT MONITOR</h2>
+          <h2 className="page-title">Drift Monitor</h2>
           {d && <StatusBadge status={d.monitoringLevel === 'ELEVATED' ? 'WARNING' : 'STABLE'} label={d.monitoringLevel} />}
         </div>
         <div className="page-question">
-          Research Question: Has the feature distribution shifted relative to its reference window (PSI &gt; 0.1 warning, &gt; 0.25 drift)?
+          Has the feature distribution shifted relative to its reference window (PSI &gt; 0.1 warning, &gt; 0.25 drift)?
         </div>
       </div>
 

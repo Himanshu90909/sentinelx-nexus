@@ -69,11 +69,11 @@ export const ModelLab: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">MODEL LAB</h2>
+          <h2 className="page-title">Model Lab</h2>
           <StatusBadge status="OK" label="REGISTRY ACTIVE" />
         </div>
         <div className="page-question">
-          Research Question: Which model architectures are registered, what are their baseline metrics, and how do they perform in walk-forward evaluation?
+          Which model architectures are registered, what are their baseline metrics, and how do they perform in walk-forward evaluation?
         </div>
       </div>
 

@@ -89,9 +89,9 @@ export const ReliabilityLab: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
-        <h2 className="page-title">RELIABILITY LAB</h2>
+        <h2 className="page-title">Reliability Lab</h2>
         <div className="page-question">
-          Research Question: Which model is most accurate, best calibrated, and most robust across walk-forward folds for a given instrument and horizon?
+          Which model is most accurate, best calibrated, and most robust across walk-forward folds for a given instrument and horizon?
         </div>
       </div>
 

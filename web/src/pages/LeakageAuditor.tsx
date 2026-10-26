@@ -56,11 +56,11 @@ export const LeakageAuditor: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">TEMPORAL LEAKAGE AUDITOR</h2>
+          <h2 className="page-title">Leakage Auditor</h2>
           <StatusBadge status={selfTestPassed ? 'OK' : 'LEAKAGE_DETECTED'} label={selfTestPassed ? 'ZERO LEAKAGE' : 'LEAKAGE DETECTED'} />
         </div>
         <div className="page-question">
-          Research Question: Are feature timestamps strictly non-causal (availability &lt;= prediction time) with zero lookahead bias?
+          Are feature timestamps strictly non-causal (availability &lt;= prediction time) with zero lookahead bias?
         </div>
       </div>
 

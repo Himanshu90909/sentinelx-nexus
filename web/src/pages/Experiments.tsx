@@ -21,9 +21,8 @@ export const Experiments: React.FC = () => {
   }, []);
 
   const cols: Column<Experiment>[] = [
-    { key: 'experimentId', header: 'Experiment ID', render: (e) => <span className="mono" style={{ color: '#4fd1c5', fontWeight: 'bold' }}>{e.experimentId}</span> },
-    { key: 'datasetVersion', header: 'Dataset Version', render: (e) => <span className="mono" style={{ color: '#9f7aea' }}>{e.datasetVersion}</span> },
-    { key: 'codeVersion', header: 'Code SHA', render: (e) => <span className="mono" style={{ color: '#8b95a5' }}>{e.codeVersion}</span> },
+    { key: 'experimentId', header: 'Run', render: (e) => <span title={e.experimentId} className="mono" style={{ color: '#4fd1c5', fontWeight: 'bold' }}>{e.experimentId.slice(0, 11)}</span> },
+    { key: 'provenance', header: 'Provenance', render: (e) => <span title={`dataset: ${e.datasetVersion}\ncode: ${e.codeVersion}`} className="mono" style={{ color: '#9f7aea' }}>logged</span> },
     { key: 'metrics', header: 'Key Metrics', render: (e) => <span className="mono">{JSON.stringify(e.metrics)}</span> },
     { key: 'reproductionCommand', header: 'Reproduction Command', render: (e) => <code style={{ backgroundColor: '#0a0e14', padding: '3px 6px', border: '1px solid #1e2633', borderRadius: '3px', color: '#4fd1c5' }}>{e.reproductionCommand}</code> },
     { key: 'createdAt', header: 'Created', render: (e) => <span className="mono">{e.createdAt}</span> },
@@ -33,11 +32,11 @@ export const Experiments: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">EXPERIMENTS REGISTRY</h2>
+          <h2 className="page-title">Experiments</h2>
           <StatusBadge status={status} />
         </div>
         <div className="page-question">
-          Research Question: What active and completed research experiments exist, and how can they be deterministically reproduced?
+          What active and completed research experiments exist, and how can they be deterministically reproduced?
         </div>
       </div>
 

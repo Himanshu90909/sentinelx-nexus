@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { get, HealthData } from '../api';
+import { dataModeSummary } from '../humanize';
 import { StatusBadge } from './StatusBadge';
 
 export const Layout: React.FC = () => {
@@ -20,16 +21,16 @@ export const Layout: React.FC = () => {
       items: [
         { path: '/', label: 'Architecture' },
         { path: '/overview', label: 'Overview' },
-        { path: '/stream', label: 'Market Stream' },
+        { path: '/stream', label: 'Live Prices' },
         { path: '/forecast', label: 'Forecast Explorer' },
-        { path: '/matrix', label: 'Horizon Matrix' },
+        { path: '/matrix', label: 'All Markets' },
       ],
     },
     {
       title: 'ML Registry & Lab',
       items: [
         { path: '/models', label: 'Model Lab' },
-        { path: '/experiments', label: 'Experiments' },
+        { path: '/experiments', label: 'Experiment Log' },
         { path: '/datasets', label: 'Datasets' },
         { path: '/reliability', label: 'Reliability Lab' },
       ],
@@ -37,10 +38,10 @@ export const Layout: React.FC = () => {
     {
       title: 'Observability & Integrity',
       items: [
-        { path: '/leakage', label: 'Leakage Auditor' },
-        { path: '/regime', label: 'Regime Monitor' },
+        { path: '/leakage', label: 'Quality Checks' },
+        { path: '/regime', label: 'Market Mood' },
         { path: '/drift', label: 'Drift Monitor' },
-        { path: '/providers', label: 'Provider Health' },
+        { path: '/providers', label: 'Data Sources' },
         { path: '/performance', label: 'Performance Lab' },
         { path: '/replay', label: 'Replay Engine' },
       ],
@@ -52,11 +53,11 @@ export const Layout: React.FC = () => {
       {/* Persistent Top Banner */}
       <div className="top-banner">
         <div className="banner-left">
-          <span className="banner-title">SENTINELX NEXUS</span>
-          <StatusBadge status={health?.dataModeBanner || 'LIVE'} />
+          <span className="banner-title">SentinelX Nexus</span>
+          <StatusBadge status="LIVE" label={dataModeSummary(health?.dataModeBanner)} />
           {health?.version && (
             <span style={{ fontFamily: 'monospace', fontSize: '10px' }}>
-              v{health.version}
+              {health.version}
             </span>
           )}
         </div>

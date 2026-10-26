@@ -64,9 +64,9 @@ export const ReplayEngine: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
-        <h2 className="page-title">RESEARCH REPLAY ENGINE</h2>
+        <h2 className="page-title">Replay Engine</h2>
         <div className="page-question">
-          Research Question: If we replay history as if it were arriving in real time, do predictions made at T use only information available at T?
+          If we replay history as if it were arriving in real time, do predictions made at T use only information available at T?
         </div>
       </div>
 

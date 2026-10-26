@@ -1,3 +1,4 @@
+import { regimeText } from '../humanize';
 import React, { useEffect, useState } from 'react';
 import { get, MatrixData } from '../api';
 import { StatusBadge } from '../components/StatusBadge';
@@ -25,11 +26,11 @@ export const Matrix: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">HORIZON MATRIX</h2>
+          <h2 className="page-title">Horizon Matrix</h2>
           <StatusBadge status={status} />
         </div>
         <div className="page-question">
-          Research Question: How do forecast availability, models, and uncertainty spans compare across all instruments and horizons?
+          How do forecast availability, models, and uncertainty spans compare across all instruments and horizons?
         </div>
       </div>
 
@@ -65,7 +66,7 @@ export const Matrix: React.FC = () => {
                       <StatusBadge status={row.dataMode} />
                     </td>
                     <td style={{ fontFamily: 'monospace', color: '#4fd1c5', fontSize: '10px' }}>
-                      {row.regime || 'STABLE'}
+                      {regimeText(row.regime)}
                     </td>
                     <td style={{ fontFamily: 'monospace', color: '#8b95a5', fontSize: '10px' }}>
                       {row.freshnessAgeSeconds !== undefined ? `${row.freshnessAgeSeconds}s ago` : '-'}

@@ -33,7 +33,7 @@ export const Landing: React.FC = () => {
           Learn across heterogeneous time series. Detect regime shifts. Audit temporal leakage. Forecast with calibrated uncertainty. Evaluate every prediction.
         </p>
         <div className="page-question">
-          Research Question: How is the SENTINELX NEXUS multi-layer temporal intelligence architecture structured?
+          How is the SENTINELX NEXUS multi-layer temporal intelligence architecture structured?
         </div>
       </div>
 

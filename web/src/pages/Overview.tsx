@@ -1,3 +1,4 @@
+import { regimeText } from '../humanize';
 import React, { useEffect, useState } from 'react';
 import { get, HealthData, MatrixData } from '../api';
 import { StatusBadge } from '../components/StatusBadge';
@@ -48,11 +49,11 @@ export const Overview: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="page-header">
         <div className="page-title-row">
-          <h2 className="page-title">SYSTEM OVERVIEW</h2>
+          <h2 className="page-title">Overview</h2>
           <StatusBadge status={healthStatus} />
         </div>
         <div className="page-question">
-          Research Question: What is the overall operational health across data streams, model inference, and forecast quality?
+          What is the overall operational health across data streams, model inference, and forecast quality?
         </div>
       </div>
 
@@ -72,7 +73,7 @@ export const Overview: React.FC = () => {
             <MetricTile
               label="Uptime Seconds"
               value={health?.uptimeSeconds ? health.uptimeSeconds.toLocaleString() : '0'}
-              subtext={`Instance: ${health?.instanceId || 'local'}`}
+              subtext="Live health check"
               accentColor="#4fd1c5"
             />
             <MetricTile
@@ -122,7 +123,7 @@ export const Overview: React.FC = () => {
                         <StatusBadge status={row.dataMode} />
                       </div>
                       <div style={{ fontSize: '11px', color: '#8b95a5', fontFamily: 'monospace' }}>
-                        Regime: <span style={{ color: '#4fd1c5' }}>{row.regime || 'STABLE'}</span>
+                        Regime: <span style={{ color: '#4fd1c5' }}>{regimeText(row.regime)}</span>
                       </div>
                       <div style={{ fontSize: '11px', color: '#8b95a5', fontFamily: 'monospace' }}>
                         Coverage: {valid} / {cells.length} horizons
