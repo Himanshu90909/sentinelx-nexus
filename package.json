@@ -1,0 +1,32 @@
+{
+  "name": "sentinelx-nexus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SENTINELX NEXUS - Autonomous Real-Time Multi-Asset Temporal Intelligence & Forecasting Engine. Research/ML engineering platform. NOT investment advice.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "reproduce": "tsx scripts/run-experiment.ts",
+    "reproduce:all": "tsx scripts/run-experiment.ts --all"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vercel/node": "^27.0.2",
+    "@vitejs/plugin-react": "^4.3.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1"
+  }
+}

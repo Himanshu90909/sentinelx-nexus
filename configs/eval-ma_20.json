@@ -1,0 +1,9 @@
+{
+  "type": "walk-forward-evaluation",
+  "model": "ma_20",
+  "symbol": "ETHUSDT",
+  "timeframe": "1h",
+  "horizon": "1h",
+  "folds": 12,
+  "notes": "Moving-average baseline."
+}

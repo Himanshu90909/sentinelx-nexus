@@ -1,0 +1,9 @@
+{
+  "type": "walk-forward-evaluation",
+  "model": "naive",
+  "symbol": "AAPL",
+  "timeframe": "1h",
+  "horizon": "1h",
+  "folds": 12,
+  "notes": "Naive baseline. The reference every model must beat (MASE=1.0)."
+}

@@ -1,0 +1,9 @@
+{
+  "type": "walk-forward-evaluation",
+  "model": "seasonal_naive",
+  "symbol": "BTCUSDT",
+  "timeframe": "1h",
+  "horizon": "4h",
+  "folds": 12,
+  "notes": "Seasonal naive on live Binance data. Requires network; falls back to synthetic if unreachable."
+}

@@ -1,0 +1,9 @@
+{
+  "type": "walk-forward-evaluation",
+  "model": "ets",
+  "symbol": "AAPL",
+  "timeframe": "1h",
+  "horizon": "1h",
+  "folds": 12,
+  "notes": "Exponential smoothing with alpha tuned on the training slice only (no validation leakage into tuning)."
+}
