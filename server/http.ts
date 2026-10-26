@@ -11,7 +11,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { AssetClass, ApiResult, iso } from "./core.js";
 import {
-  getHealth, getInstruments, adminAddInstrument, getMarket, getFeatures, getForecast,
+  getHealth, getInstrumentsWithQuotes, adminAddInstrument, getMarket, getFeatures, getForecast,
   getForecastHistory, getMatrix, getRegime, getDrift, getDataQuality, getLeakageReport,
   getEvaluation, getModels, getExperiments, getDatasets, getReplay, metricsLatency,
   adminRetrain,
@@ -34,7 +34,7 @@ export const ROUTES: Route[] = [
   route("GET", "health", async () => getHealth()),
   route("GET", "architecture", async () => ({ status: "OK" as const, data: ARCHITECTURE, generatedAt: iso(Date.now()) })),
   route("GET", "providers", async () => ({ status: "OK" as const, data: { providers: providerSnapshot() }, generatedAt: iso(Date.now()) })),
-  route("GET", "instruments", async () => getInstruments()),
+  route("GET", "instruments", async () => getInstrumentsWithQuotes()),
   route("POST", "instruments", async (req) => {
     const body = readBody(req);
     if (!body.symbol) return bad("BAD_REQUEST", "symbol required");

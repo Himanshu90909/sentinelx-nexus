@@ -3,7 +3,8 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import Landing from './pages/Landing';
 import { Overview } from './pages/Overview';
-import { MarketStream } from './pages/MarketStream';
+import { Markets } from './pages/Markets';
+import { AssetDetail } from './pages/AssetDetail';
 import { ForecastExplorer } from './pages/ForecastExplorer';
 import { Matrix } from './pages/Matrix';
 import { ModelLab } from './pages/ModelLab';
@@ -23,8 +24,9 @@ export const App: React.FC = () => (
       <Route element={<Layout />}>
         <Route path="/" element={<Landing />} />
         <Route path="/overview" element={<Overview />} />
-        <Route path="/stream" element={<MarketStream />} />
-        <Route path="/forecast" element={<ForecastExplorer />} />
+        <Route path="/markets" element={<Markets />} />
+        <Route path="/asset/:symbol" element={<AssetDetail />} />
+            <Route path="/forecast" element={<ForecastExplorer />} />
         <Route path="/matrix" element={<Matrix />} />
         <Route path="/models" element={<ModelLab />} />
         <Route path="/experiments" element={<Experiments />} />

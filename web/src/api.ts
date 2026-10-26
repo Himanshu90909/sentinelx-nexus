@@ -63,6 +63,18 @@ export interface ProvidersData {
   providers: ProviderInfo[];
 }
 
+export interface Quote {
+  price: number;
+  change: number;
+  changePct: number;
+  spark: number[];
+  high: number;
+  low: number;
+  volume: number;
+  dataMode: string;
+  asOf: string;
+}
+
 export interface Instrument {
   id: string;
   symbol: string;
@@ -72,6 +84,8 @@ export interface Instrument {
   dataMode: string;
   active: boolean;
   source?: string;
+  quote?: Quote | null;
+  quoteStatus?: string;
 }
 
 export interface InstrumentsData {

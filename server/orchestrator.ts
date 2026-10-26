@@ -317,6 +317,45 @@ export function getInstruments(): ApiResult<unknown> {
   return ok({ instruments: [...instruments().values()].map((i) => ({ ...i })) });
 }
 
+
+/**
+ * Groww-style quotes list: every active instrument with its latest price,
+ * change, changePct, a compact sparkline and the honest data-mode label.
+ * Uses the cached provider layer, so dashboard polling stays cheap.
+ */
+export async function getInstrumentsWithQuotes(): Promise<ApiResult<unknown>> {
+  ensureSeeded();
+  const rows = [] as Array<Record<string, unknown>>;
+  for (const i of instruments().values()) {
+    if (!i.active) continue;
+    const m = await getMarket(i.symbol, "1h", 24);
+    let quote = null as null | {
+      price: number; change: number; changePct: number; spark: number[];
+      high: number; low: number; volume: number; dataMode: DataMode; asOf: string;
+    };
+    const md = m.data as { candles?: Array<{ t: number; c: number; h: number; l: number; v: number }>; dataMode?: DataMode } | undefined;
+    if (m.status === "OK" && md && Array.isArray(md.candles) && md.candles.length >= 2) {
+      const cs = md.candles as Array<{ t: number; c: number; h: number; l: number; v: number }>;
+      const last = cs[cs.length - 1];
+      const prev = cs[cs.length - 2];
+      quote = {
+        price: last.c,
+        change: last.c - prev.c,
+        changePct: prev.c !== 0 ? ((last.c - prev.c) / prev.c) * 100 : 0,
+        spark: cs.map((c) => c.c),
+        high: Math.max(...cs.map((c) => c.h)),
+        low: Math.min(...cs.map((c) => c.l)),
+        volume: cs.reduce((a, c) => a + (c.v ?? 0), 0),
+        dataMode: (md.dataMode ?? i.dataMode) as DataMode,
+        asOf: iso(last.t),
+      };
+    }
+    rows.push({ ...i, quote, quoteStatus: quote ? "OK" : m.status });
+  }
+  return ok({ instruments: rows, generatedAt: iso(Date.now()) });
+}
+
+
 export function adminAddInstrument(symbol: string, assetClass: AssetClass, market?: string): ApiResult<unknown> {
   const res = addInstrument(symbol.toUpperCase(), assetClass, market);
   if ("error" in res) return fail("BAD_REQUEST", res.error);

@@ -20,7 +20,7 @@ export const Layout: React.FC = () => {
       title: 'Core Engine',
       items: [
         { path: '/overview', label: 'Overview' },
-        { path: '/stream', label: 'Live Prices' },
+        { path: '/markets', label: 'Markets' },
         { path: '/forecast', label: 'Forecast Explorer' },
         { path: '/matrix', label: 'All Markets' },
       ],

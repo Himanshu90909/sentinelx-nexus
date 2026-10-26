@@ -553,3 +553,69 @@ table.dense-table tr:hover td {
 .quality-component-item:last-child {
   border-bottom: none;
 }
+
+/* ===== Groww-style Markets page ===== */
+.quotes-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.quote-card {
+  min-width: 148px;
+  background: var(--panel, #131c26);
+  border: 1px solid rgba(140, 152, 170, 0.18);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.quote-card:hover { border-color: #4fd1c5; }
+.quote-card-top { display: flex; justify-content: space-between; align-items: center; }
+.quote-symbol { font-weight: 600; font-size: 13px; }
+.quote-mode { font-size: 9px; letter-spacing: 0.05em; color: #4fd1c5; border: 1px solid rgba(79, 209, 197, 0.4); border-radius: 4px; padding: 1px 5px; }
+.quote-price { font-size: 17px; font-weight: 700; }
+.quote-change { font-size: 12px; font-weight: 600; }
+
+.gl-list { display: flex; flex-direction: column; }
+.gl-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 12px; border-bottom: 1px solid rgba(140, 152, 170, 0.12);
+  text-decoration: none; color: inherit;
+}
+.gl-row:last-child { border-bottom: none; }
+.gl-row:hover { background: rgba(79, 209, 197, 0.06); }
+.gl-name { font-weight: 600; font-size: 13px; }
+
+.tab-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.tab-btn {
+  background: transparent; color: #8b95a5; border: 1px solid rgba(140, 152, 170, 0.25);
+  border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.tab-btn:hover { color: #d7dde6; }
+.tab-btn-active { color: #0b1117; background: #4fd1c5; border-color: #4fd1c5; }
+
+.search-input {
+  background: rgba(11, 17, 23, 0.6); color: #d7dde6;
+  border: 1px solid rgba(140, 152, 170, 0.3); border-radius: 8px;
+  padding: 7px 12px; font-size: 12px; min-width: 200px; outline: none;
+}
+.search-input:focus { border-color: #4fd1c5; }
+
+.mkt-rows { display: flex; flex-direction: column; }
+.mkt-row {
+  display: grid; grid-template-columns: 110px 1fr auto auto; align-items: center; gap: 14px;
+  padding: 11px 12px; border-bottom: 1px solid rgba(140, 152, 170, 0.12);
+  text-decoration: none; color: inherit;
+}
+.mkt-row:last-child { border-bottom: none; }
+.mkt-row:hover { background: rgba(79, 209, 197, 0.06); }
+.mkt-quote { text-align: right; }
+
+.stat-cell {
+  background: rgba(11, 17, 23, 0.5); border: 1px solid rgba(140, 152, 170, 0.14);
+  border-radius: 8px; padding: 8px 10px;
+}

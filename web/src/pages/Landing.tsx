@@ -45,7 +45,7 @@ const Landing: React.FC = () => {
           <Link to="/forecast" className="nav-item" style={{ border: '1px solid #4fd1c5', color: '#4fd1c5', padding: '9px 16px', borderRadius: '6px', textDecoration: 'none', fontWeight: 600 }}>
             See a live forecast
           </Link>
-          <Link to="/matrix" className="nav-item" style={{ border: '1px solid #3a4656', color: '#d7dde6', padding: '9px 16px', borderRadius: '6px', textDecoration: 'none', fontWeight: 600 }}>
+          <Link to="/markets" className="nav-item" style={{ border: "1px solid #3a4656", color: '#d7dde6', padding: '9px 16px', borderRadius: '6px', textDecoration: 'none', fontWeight: 600 }}>
             Browse all markets
           </Link>
         </div>
