@@ -19,7 +19,6 @@ export const Layout: React.FC = () => {
     {
       title: 'Core Engine',
       items: [
-        { path: '/', label: 'Architecture' },
         { path: '/overview', label: 'Overview' },
         { path: '/stream', label: 'Live Prices' },
         { path: '/forecast', label: 'Forecast Explorer' },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { Landing } from './pages/Landing';
+import Landing from './pages/Landing';
 import { Overview } from './pages/Overview';
 import { MarketStream } from './pages/MarketStream';
 import { ForecastExplorer } from './pages/ForecastExplorer';
